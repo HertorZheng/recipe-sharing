@@ -15,34 +15,32 @@ function RecipeForm() {
     formData.append('image', image);
 
     try {
-      const response = await axios.post('/api/recipes', formData, {
+      const response = await axios.post('http://localhost:5000/api/recipes', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       });
       setMessage('Recipe submitted successfully!');
+      setTitle('');
+      setDescription('');
+      setImage(null);
     } catch (error) {
-      setMessage('Recipe submission failed. Please try again.');
+      setMessage('Error submitting recipe');
+      console.error('Error submitting recipe:', error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <form onSubmit={handleSubmit}>
       <h2>Submit a Recipe</h2>
+      {message && <p>{message}</p>}
       <label>Title:</label>
       <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
       <label>Description:</label>
-      <textarea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        rows="10"
-        cols="50"
-        required
-      />
+      <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows="10" cols="50" required />
       <label>Image:</label>
       <input type="file" onChange={(e) => setImage(e.target.files[0])} required />
-      <button type="submit" style={{ marginTop: '10px' }}>Submit</button>
-      {message && <p>{message}</p>}
+      <button type="submit">Submit</button>
     </form>
   );
 }

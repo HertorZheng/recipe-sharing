@@ -10,6 +10,7 @@ function Header() {
       <nav>
         <ul>
           <li><Link to="/">Home</Link></li>
+<<<<<<< HEAD
           {!isLoggedIn ? (
             <>
               <li><Link to="/login">Login</Link></li>
@@ -22,6 +23,12 @@ function Header() {
               <li><Link to="/recipes">Recipes</Link></li>
             </>
           )}
+=======
+          <li><Link to="/login">Login</Link></li>
+          <li><Link to="/signup">Signup</Link></li>
+          <li><Link to="/submit-recipe">Submit Recipe</Link></li>
+          <li><Link to="/recipes">Recipes</Link></li>
+>>>>>>> 460bbe19ae0977078a205066e86c4c0f9c696e5b
         </ul>
       </nav>
     </header>

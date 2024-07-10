@@ -6,7 +6,10 @@ import Footer from './components/Footer';
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
+<<<<<<< HEAD
 import Logout from './components/Logout';
+=======
+>>>>>>> 460bbe19ae0977078a205066e86c4c0f9c696e5b
 import RecipeForm from './components/RecipeForm';
 import RecipeList from './components/RecipeList';
 import RecipeDetail from './components/RecipeDetail';
@@ -14,6 +17,7 @@ import './App.css';
 
 function App() {
   return (
+<<<<<<< HEAD
     <AuthProvider>
       <Router>
         <div className="App">
@@ -31,6 +35,22 @@ function App() {
         </div>
       </Router>
     </AuthProvider>
+=======
+    <Router>
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/submit-recipe" element={<RecipeForm />} />
+          <Route path="/recipes" element={<RecipeList />} />
+          <Route path="/recipe/:id" element={<RecipeDetail />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
+>>>>>>> 460bbe19ae0977078a205066e86c4c0f9c696e5b
   );
 }
 

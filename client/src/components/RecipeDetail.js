@@ -1,13 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import './RecipeList.css';
 
-function RecipeDetail({ title, description, imageUrl }) {
+function RecipeList() {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/recipes');
+        setRecipes(response.data);
+      } catch (error) {
+        console.error('Error fetching recipes:', error);
+      }
+    };
+    fetchRecipes();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/recipes/${id}`);
+      setRecipes(recipes.filter(recipe => recipe._id !== id));
+    } catch (error) {
+      console.error('Error deleting recipe:', error);
+    }
+  };
+
   return (
-    <div>
-      <h2>{title}</h2>
-      <p>{description}</p>
-      {imageUrl && <img src={imageUrl} alt={title} />}
+    <div className="recipe-list">
+      <h1>All Recipes</h1>
+      <div className="recipes-container">
+        {recipes.length === 0 ? (
+          <p>No recipes found.</p>
+        ) : (
+          recipes.map(recipe => (
+            <div key={recipe._id} className="recipe-card">
+              <Link to={`/recipe/${recipe._id}`} className="recipe-link">
+                <h2>{recipe.title}</h2>
+                {recipe.imageUrl && <img src={`http://localhost:5000/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
+                <p>{recipe.description}</p>
+              </Link>
+              <button onClick={() => handleDelete(recipe._id)}>Delete</button>
+              <Link to={`/edit-recipe/${recipe._id}`}>Edit</Link>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
 
-export default RecipeDetail;
+export default RecipeList;

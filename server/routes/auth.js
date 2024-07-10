@@ -33,4 +33,11 @@ router.post('/login', async (req, res) => {
   }
 });
 
+//Logout Route
+router.post('/logout', async(req, res) => {
+  
+  res.send('Logged out');
+
+});
+
 module.exports = router;

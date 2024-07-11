@@ -51,14 +51,13 @@ header {
   margin-bottom: 20px;
 }
 
-
 nav ul {
   list-style-type: none;
   padding: 10px;
   background-color: #3b6daf;
   margin: 0 auto; 
-  max-width: 40%; 
-  border-radius: 10px; 
+  max-width: 50%; 
+  border-radius: 10px;
 }
 
 nav li {
@@ -68,15 +67,14 @@ nav li {
 
 nav a {
   text-decoration: none;
-  color: #2b1108;
-  font-size: 15px;
+  color: #020202;
+  font-size: 16px;
   padding: 10px 13px;
 }
 
 
 nav  a:hover {
   color: #F2E9E4;
-  background-color:#22223B ;
 }
 
 
@@ -112,10 +110,10 @@ form button {
 }
 
 .form-border{
-border:1px solid #282c34;
+border:1px solid #eaebee;
 display: inline-block;
 border-radius: 6px;
-border-color: black;
+border-color:  rgb(230, 224, 224);
 border-width: 4px;
 background: #087FC1;
 

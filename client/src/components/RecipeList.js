@@ -42,7 +42,7 @@ function RecipeList() {
                 {recipe.imageUrl && <img src={`http://localhost:5000/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
                 <p className="recipe-description">{recipe.description}</p>
               </Link>
-              <button onClick={() => handleDelete(recipe._id)}>Delete</button>
+              <button onClick={() => handleDelete(recipe._id)}>X</button>
             </div>
           ))
         )}

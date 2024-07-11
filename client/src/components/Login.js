@@ -13,7 +13,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/login', { email, password });
+      const response = await axios.post('https://recipe-sharing-1.onrender.com/login', { email, password }); // http://localhost:5000/api/login
       login(response.data.token);
       navigate('/recipes');
     } catch (error) {

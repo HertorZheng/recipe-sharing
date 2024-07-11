@@ -11,7 +11,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://recipe-sharing-1.onrender.com/signup', { email, password }); //ttp://localhost:5000/api/signup
+      await axios.post('https://recipe-sharing-1.onrender.com/api/signup', { email, password }); //ttp://localhost:5000/api/signup
       navigate('/login');
     } catch (error) {
       setError('Error registering user');

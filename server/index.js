@@ -17,7 +17,7 @@ app.use('/api', authRoutes);
 app.use('/api', recipeRoutes);
 
 // MongoDB connection
-mongoose.connect('mongodb+srv:hectorzheng4:Hector7126216!@hectorz.8d5rczo.mongodb.net/?retryWrites=true&w=majority&appName=HectorZ', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

@@ -1,4 +1,4 @@
-require ("dotenv").config()
+require ("dotenv").config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -19,7 +19,7 @@ app.use('/api', authRoutes);
 app.use('/api', recipeRoutes);
 
 // MongoDB connection
-mongoose.connect(process.env.Mango_URL, {
+mongoose.connect(process.env.MongoDB_URL, {
   //mongodb+srv://hectorzheng4:Hector7126216!@hectorz.8d5rczo.mongodb.net/?retryWrites=true&w=majority&appName=HectorZ
   useNewUrlParser: true,
   useUnifiedTopology: true,

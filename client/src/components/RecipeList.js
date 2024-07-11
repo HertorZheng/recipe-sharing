@@ -30,6 +30,7 @@ function RecipeList() {
   return (
     <div className="recipe-list">
       <h1>All Recipes</h1>
+      <h4>Click the image to edit the recipe details</h4>
       <div className="recipes-container">
         {recipes.length === 0 ? (
           <p>No recipes found.</p>
@@ -39,7 +40,7 @@ function RecipeList() {
               <Link to={`/recipe/${recipe._id}`} className="recipe-link">
                 <h2>{recipe.title}</h2>
                 {recipe.imageUrl && <img src={`http://localhost:5000/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
-                <p>{recipe.description}</p>
+                <p className="recipe-description">{recipe.description}</p>
               </Link>
               <button onClick={() => handleDelete(recipe._id)}>Delete</button>
             </div>

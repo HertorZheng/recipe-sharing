@@ -10,6 +10,7 @@ import Logout from './components/Logout';
 import RecipeForm from './components/RecipeForm';
 import RecipeList from './components/RecipeList';
 import RecipeDetail from './components/RecipeDetail';
+import EditRecipe from './components/EditRecipe'; 
 import './App.css';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path="/submit-recipe" element={<RecipeForm />} />
             <Route path="/recipes" element={<RecipeList/>} />
             <Route path="/recipe/:id" element={<RecipeDetail />} />
+            <Route path="/edit-recipe/:id" element={<EditRecipe />} />
           </Routes>
           <Footer />
         </div>

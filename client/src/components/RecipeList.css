@@ -3,6 +3,7 @@
     margin: 0 auto;
     padding: 20px;
     text-align: center;
+    white-space: pre-wrap;
   }
   
   .recipes-container {
@@ -44,4 +45,10 @@
     font-size: 1em;
     color: #555;
   }
+  button{
+    
+    background-color: red;
+    color:white;
+  } 
+
   

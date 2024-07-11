@@ -1,54 +1,43 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import './RecipeList.css';
+import './RecipeDetail.css';
 
-function RecipeList() {
-  const [recipes, setRecipes] = useState([]);
+function RecipeDetail() {
+  const { id } = useParams(); // Ensure id is retrieved from useParams
+  const navigate = useNavigate(); // Ensure navigate is defined
+  const [recipe, setRecipe] = useState(null);
 
   useEffect(() => {
-    const fetchRecipes = async () => {
+    const fetchRecipe = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/recipes');
-        setRecipes(response.data);
+        const response = await axios.get(`http://localhost:5000/api/recipes/${id}`);
+        setRecipe(response.data);
       } catch (error) {
-        console.error('Error fetching recipes:', error);
+        console.error('Error fetching recipe:', error);
       }
     };
-    fetchRecipes();
-  }, []);
+    fetchRecipe();
+  }, [id]);
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/api/recipes/${id}`);
-      setRecipes(recipes.filter(recipe => recipe._id !== id));
-    } catch (error) {
-      console.error('Error deleting recipe:', error);
-    }
+  const handleEdit = () => {
+    navigate(`/edit-recipe/${id}`); // Ensure id is passed to the navigate function
   };
 
+
+  if (!recipe) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="recipe-list">
-      <h1>All Recipes</h1>
-      <div className="recipes-container">
-        {recipes.length === 0 ? (
-          <p>No recipes found.</p>
-        ) : (
-          recipes.map(recipe => (
-            <div key={recipe._id} className="recipe-card">
-              <Link to={`/recipe/${recipe._id}`} className="recipe-link">
-                <h2>{recipe.title}</h2>
-                {recipe.imageUrl && <img src={`http://localhost:5000/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
-                <p>{recipe.description}</p>
-              </Link>
-              <button onClick={() => handleDelete(recipe._id)}>Delete</button>
-              <Link to={`/edit-recipe/${recipe._id}`}>Edit</Link>
-            </div>
-          ))
-        )}
-      </div>
+    <div className="recipe-detail">
+      <h1>{recipe.title}</h1>
+      {recipe.imageUrl && <img src={`http://localhost:5000/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
+      <p>{recipe.description}</p>
+      <button onClick={handleEdit}>Edit</button>
     </div>
   );
 }
 
-export default RecipeList;
+export default RecipeDetail;
+

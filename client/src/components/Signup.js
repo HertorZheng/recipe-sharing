@@ -11,7 +11,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/signup', { email, password });
+      await axios.post('http://localhost:5000/api/signup', { email, password }); 
       navigate('/login');
     } catch (error) {
       setError('Error registering user');

@@ -15,7 +15,7 @@ function RecipeForm() {
     formData.append('image', image);
 
     try {
-      const response = await axios.post('https://recipe-sharing-1.onrender.com/api/recipes', formData, { //'http://localhost:5000/api/recipes'
+      const response = await axios.post('http://localhost:5000/api/recipes', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

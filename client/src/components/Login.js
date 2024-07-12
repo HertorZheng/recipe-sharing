@@ -13,7 +13,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('${process.env.REACT_APP_API_URL}', { email, password });
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, { email, password });
       login(response.data.token);
       navigate('/recipes');
     } catch (error) {
@@ -22,7 +22,7 @@ function Login() {
   };
 
   return (
-    <div class="form-border">
+    <div className="form-border">
       <form onSubmit={handleSubmit}>
         <h2>Login</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}

@@ -11,7 +11,9 @@ const recipeRoutes = require('./routes/recipes');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://your-frontend-site.onrender.com'
+}));
 app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));
 

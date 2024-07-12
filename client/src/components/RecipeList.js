@@ -9,7 +9,7 @@ function RecipeList() {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await axios.get('process.env.REACT_APP_API_URL/recipes');
+        const response = await axios.get('${process.env.REACT_APP_API_URL}/recipes');
         setRecipes(response.data);
       } catch (error) {
         console.error('Error fetching recipes:', error);
@@ -20,7 +20,7 @@ function RecipeList() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`process.env.REACT_APP_API_URL/recipes/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/recipes/${id}`);
       setRecipes(recipes.filter(recipe => recipe._id !== id));
     } catch (error) {
       console.error('Error deleting recipe:', error);

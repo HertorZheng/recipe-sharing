@@ -12,7 +12,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: 'https://your-frontend-site.onrender.com'
+  origin: 'https://recipe-sharing-1.onrender.com/'
 }));
 app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));

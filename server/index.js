@@ -10,9 +10,22 @@ const recipeRoutes = require('./routes/recipes');
 const app = express();
 
 // Middleware
-const allowedOrigins = [process.env.CLIENT_URL, 'https://recipe-frontend-vuej.onrender.com']; // Add all allowed origins
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'https://recipe-frontend-byku.onrender.com',
+  'https://recipe-frontend-l8n0.onrender.com'
+];
+
 app.use(cors({
-  origin: allowedOrigins,
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps, curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   optionsSuccessStatus: 200,
   credentials: true // Allow credentials if needed
 }));

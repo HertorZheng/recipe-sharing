@@ -13,7 +13,7 @@ services:
       - key: JWT_SECRET
         value: your_jwt_secret
       - key: CLIENT_URL
-        value: http://your-client-domain
+        value: https://recipe-frontend-byku.onrender.com
 
   - name: recipe-frontend
     type: web
@@ -22,4 +22,4 @@ services:
     staticPublishPath: client/build
     envVars:
       - key: REACT_APP_API_URL
-        value: http://your-backend-domain
+        value: https://recipe-backend-byku.onrender.com/api

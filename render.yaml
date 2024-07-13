@@ -16,7 +16,7 @@ services:
         value: http://your-client-domain
 
   - name: recipe-frontend
-    type: static
+    type: web
     env: static
     plan: free
     buildCommand: npm install && npm run build

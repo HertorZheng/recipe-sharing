@@ -13,7 +13,9 @@ const app = express();
 const allowedOrigins = [
   process.env.CLIENT_URL,
   'https://recipe-frontend-byku.onrender.com',
-  'https://recipe-frontend-l8n0.onrender.com'
+  'https://recipe-frontend-l8n0.onrender.com',
+  'https://recipe-frontend-vy0o.onrender.com',
+  'https://recipe-frontend-0yyx.onrender.com'
 ];
 
 app.use(cors({

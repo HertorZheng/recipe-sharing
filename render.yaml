@@ -3,8 +3,8 @@ services:
     type: web
     env: node
     plan: free
-    buildCommand: npm install && cd server && npm install
-    startCommand: cd server && node index.js
+    buildCommand: cd .. && npm install && cd server && npm install
+    startCommand: node index.js
     envVars:
       - key: MONGODB_URL
         value: mongodb+srv://hectorzheng4:Hector7126216!@hectorz.8d5rczo.mongodb.net/?retryWrites=true&w=majority&appName=HectorZ
@@ -13,13 +13,13 @@ services:
       - key: JWT_SECRET
         value: your_jwt_secret
       - key: CLIENT_URL
-        value: https://recipe-frontend-byku.onrender.com
-
+        value: https://recipe-frontend-vy0o.onrender.com
   - name: recipe-frontend
     type: web
     env: static
-    buildCommand: cd client && npm install && npm run build
-    staticPublishPath: client/build
+    plan: free
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://recipe-backend-byku.onrender.com/api
+        value: https://recipe-backend-byku.onrender.com

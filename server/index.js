@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const path = require('path');
+const path = require('path'); // Add this
 const authRoutes = require('./routes/auth');
 const recipeRoutes = require('./routes/recipes');
 
@@ -12,24 +12,24 @@ const app = express();
 // Middleware
 const allowedOrigins = [
   process.env.CLIENT_URL,
-  'https://recipe-frontend-0yyx.onrender.com',
   'https://recipe-frontend-byku.onrender.com',
   'https://recipe-frontend-l8n0.onrender.com',
-  'https://recipe-frontend-vy0o.onrender.com'
+  'https://recipe-frontend-vy0o.onrender.com',
+  'https://recipe-frontend-oyyx.onrender.com',
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
     }
-    return callback(null, true);
   },
-  optionsSuccessStatus: 200,
-  credentials: true
+  credentials: true, // Allow credentials if needed
+  optionsSuccessStatus: 200
 }));
+
 app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));
 

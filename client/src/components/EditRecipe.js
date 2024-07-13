@@ -10,7 +10,7 @@ function EditRecipe() {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get(`https://recipe-sharing-1.onrender.com/api/recipes/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/recipes/${id}`);
         setRecipe(response.data);
       } catch (error) {
         console.error('Error fetching recipe:', error);
@@ -26,7 +26,7 @@ function EditRecipe() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`https://recipe-sharing-1.onrender.com/api/recipes/${id}`, recipe);
+      await axios.put(`${process.env.REACT_APP_API_URL}/recipes/${id}`, recipe);
       navigate('/recipes');
     } catch (error) {
       console.error('Error updating recipe:', error);

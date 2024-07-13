@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const path = require('path'); // Add this
+const path = require('path');
 const authRoutes = require('./routes/auth');
 const recipeRoutes = require('./routes/recipes');
 
@@ -11,8 +11,9 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.CLIENT_URL, // Update this to your client URL
-  optionsSuccessStatus: 200
+  origin: process.env.CLIENT_URL, // Ensure this is set to your client URL
+  optionsSuccessStatus: 200,
+  credentials: true // Allow credentials if needed
 }));
 app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));

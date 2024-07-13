@@ -10,8 +10,9 @@ const recipeRoutes = require('./routes/recipes');
 const app = express();
 
 // Middleware
+const allowedOrigins = [process.env.CLIENT_URL, 'https://recipe-frontend-vuej.onrender.com']; // Add all allowed origins
 app.use(cors({
-  origin: process.env.CLIENT_URL, // Ensure this is set to your client URL
+  origin: allowedOrigins,
   optionsSuccessStatus: 200,
   credentials: true // Allow credentials if needed
 }));

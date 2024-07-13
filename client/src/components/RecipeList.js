@@ -9,7 +9,7 @@ function RecipeList() {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await axios.get('${process.env.REACT_APP_API_URL}/recipes');
+        const response = await axios.get('https://recipe-sharing-1.onrender.com/api/recipes');
         setRecipes(response.data);
       } catch (error) {
         console.error('Error fetching recipes:', error);
@@ -20,7 +20,7 @@ function RecipeList() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/recipes/${id}`);
+      await axios.delete(`https://recipe-sharing-1.onrender.com/api/recipes/${id}`);
       setRecipes(recipes.filter(recipe => recipe._id !== id));
     } catch (error) {
       console.error('Error deleting recipe:', error);
@@ -39,7 +39,7 @@ function RecipeList() {
             <div key={recipe._id} className="recipe-card">
               <Link to={`/recipe/${recipe._id}`} className="recipe-link">
                 <h2>{recipe.title}</h2>
-                {recipe.imageUrl && <img src={`process.env.REACT_APP_IMAGE_URL/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
+                {recipe.imageUrl && <img src={`https://recipe-sharing-1.onrender.com/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
                 <p className="recipe-description">{recipe.description}</p>
               </Link>
               <button onClick={() => handleDelete(recipe._id)}>Delete</button>

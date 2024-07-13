@@ -11,7 +11,7 @@ function RecipeDetail() {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/recipes/${id}`);
+        const response = await axios.get(`https://recipe-sharing-1.onrender.com/api/recipes/${id}`);
         setRecipe(response.data);
       } catch (error) {
         console.error('Error fetching recipe:', error);
@@ -32,7 +32,7 @@ function RecipeDetail() {
   return (
     <div className="recipe-detail">
       <h1>{recipe.title}</h1>
-      {recipe.imageUrl && <img src={`http://localhost:5000/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
+      {recipe.imageUrl && <img src={`https://recipe-sharing-1.onrender.com/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
       <p>{recipe.description}</p>
       <button onClick={handleEdit}>Edit</button>
     </div>

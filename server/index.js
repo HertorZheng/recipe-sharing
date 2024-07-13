@@ -1,27 +1,36 @@
-require ("dotenv").config();
-console.log('MongoDB URL:', process.env.MongoDB_URL);
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path'); // Add this
 const authRoutes = require('./routes/auth');
 const recipeRoutes = require('./routes/recipes');
-
 
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL, // Update this to your client URL
+  optionsSuccessStatus: 200
+}));
 app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 // Routes
 app.use('/api', authRoutes);
 app.use('/api', recipeRoutes);
 
+// Catchall handler to serve the React app for unknown routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+
 // MongoDB connection
-mongoose.connect(process.env.MongoDB_URL, {
-  //mongodb+srv://hectorzheng4:Hector7126216!@hectorz.8d5rczo.mongodb.net/?retryWrites=true&w=majority&appName=HectorZ
+mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

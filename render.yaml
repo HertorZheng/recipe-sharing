@@ -1,0 +1,26 @@
+services:
+  - name: recipe-backend
+    type: web
+    env: node
+    plan: free
+    buildCommand: cd .. && npm install && cd server && npm install
+    startCommand: node index.js
+    envVars:
+      - key: MONGODB_URL
+        value: mongodb+srv://hectorzheng4:Hector7126216!@hectorz.8d5rczo.mongodb.net/?retryWrites=true&w=majority&appName=HectorZ
+      - key: PORT
+        value: 5000
+      - key: JWT_SECRET
+        value: your_jwt_secret
+      - key: CLIENT_URL
+        value: http://your-client-domain
+
+  - name: recipe-frontend
+    type: static
+    env: static
+    plan: free
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: http://your-backend-domain

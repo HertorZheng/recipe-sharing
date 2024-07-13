@@ -15,16 +15,17 @@ const allowedOrigins = [
   'https://recipe-frontend-byku.onrender.com',
   'https://recipe-frontend-l8n0.onrender.com',
   'https://recipe-frontend-vy0o.onrender.com',
-  'https://recipe-frontend-oyyx.onrender.com',
+  'https://recipe-frontend-0yyx.onrender.com'
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
     }
+    return callback(null, true);
   },
   credentials: true, // Allow credentials if needed
   optionsSuccessStatus: 200

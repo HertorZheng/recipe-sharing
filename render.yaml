@@ -13,7 +13,7 @@ services:
       - key: JWT_SECRET
         value: your_jwt_secret
       - key: CLIENT_URL
-        value: https://recipe-frontend-vy0o.onrender.com
+        value: https://recipe-frontend-vy0o.onrender.com  # Update this to your frontend URL
   - name: recipe-frontend
     type: web
     env: static
@@ -22,4 +22,4 @@ services:
     staticPublishPath: build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://recipe-backend-byku.onrender.com
+        value: https://recipe-backend-byku.onrender.com # Update this to your backend URL

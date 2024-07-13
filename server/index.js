@@ -3,13 +3,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const path = require('path'); // Add this
+const path = require('path');
 const authRoutes = require('./routes/auth');
 const recipeRoutes = require('./routes/recipes');
 
 const app = express();
 
-// Middleware
 const allowedOrigins = [
   process.env.CLIENT_URL,
   'https://recipe-frontend-byku.onrender.com',
@@ -20,15 +19,14 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
     }
-    return callback(null, true);
   },
-  credentials: true, // Allow credentials if needed
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
+  credentials: true
 }));
 
 app.use(bodyParser.json());

@@ -42,6 +42,10 @@ header {
   margin-bottom: 20px;
 }
 
+nav {
+  margin-bottom: 20px; /* Added spacing */
+}
+
 nav ul {
   list-style-type: none;
   padding: 10px;
@@ -55,7 +59,7 @@ nav ul {
 
 nav li {
   display: inline;
-  margin: 10px;
+  margin: 0 10px; /* Adjusted for better spacing */
 }
 
 nav a {
@@ -85,6 +89,8 @@ form {
 
 form label {
   margin-top: 10px;
+  text-align: left; /* Align text to the left */
+  width: 100%; /* Ensures full width */
 }
 
 form input {
@@ -102,6 +108,7 @@ form button {
   padding: 15px;
   cursor: pointer;
   border: none;
+  width: 100%; /* Full width for button */
 }
 
 .form-border {
@@ -142,7 +149,7 @@ form button {
 
   form {
     width: 90%;
-    margin: 10px;
+    margin: 10px auto; /* Centered */
   }
 
   nav ul {
@@ -173,6 +180,7 @@ form button {
     padding: 6px 8px;
   }
 }
+
 
 
 

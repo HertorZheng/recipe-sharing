@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function Signup() {
+const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -10,27 +10,42 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+
+    // Add console log here
+    console.log('API URL:', process.env.REACT_APP_API_URL);
+
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/signup`, { email, password }); 
-      navigate('/login');
-    } catch (error) {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/signup`, { email, password });
+      console.log(response.data);  // Add this line to log the response for debugging
+      if (response.status === 201) {
+        navigate('/login');
+      } else {
+        setError('Error registering user');
+      }
+    } catch (err) {
+      console.error('Signup error:', err);
       setError('Error registering user');
     }
   };
 
   return (
-    <div class="form-border">
+    <div className="signup">
+      <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
-        <h2>Signup</h2>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <label>Email:</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <label>Password:</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <label>
+          Email:
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        </label>
+        <label>
+          Password:
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        </label>
+        {error && <p className="error">{error}</p>}
         <button type="submit">Signup</button>
       </form>
     </div>
   );
-}
+};
 
 export default Signup;

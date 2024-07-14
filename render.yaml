@@ -7,15 +7,12 @@ services:
     startCommand: 'cd server && node index.js'
     envVars:
       - key: MONGODB_URL
-        value: mongodb+srv://hectorzheng4:Hector7126216!@hectorz.8d5rczo.mongodb.net/?retryWrites=true&w=majority&appName=HectorZ
+        value: ${{ secrets.MONGODB_URL }}
       - key: CLIENT_URL
-        value: https://recipe-frontend-0yyx.onrender.com
+        value: ${{ secrets.CLIENT_URL }}
 
   - type: web
     name: recipe-frontend
     env: static
     buildCommand: 'cd client && npm install && npm run build'
     startCommand: 'cd client && serve -s build'
-    envVars:
-      - key: REACT_APP_API_URL
-        value: https://recipe-backend-unqz.onrender.com/api

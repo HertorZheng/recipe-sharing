@@ -9,6 +9,8 @@ const userRoutes = require('./routes/users');
 
 const app = express();
 
+console.log('MongoDB URL:', process.env.MONGODB_URL);  // Add this line to debug
+
 const allowedOrigins = [
   'http://localhost:3000',
   'https://recipe-frontend-0yyx.onrender.com'

@@ -12,7 +12,6 @@ const Signup = () => {
     e.preventDefault();
     setError('');
 
-    // Add console log here
     console.log('API URL:', process.env.REACT_APP_API_URL);
 
     try {

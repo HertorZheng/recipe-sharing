@@ -16,6 +16,7 @@ services:
     env: static
     buildCommand: 'cd client && npm install && npm run build'
     startCommand: 'cd client && serve -s build'
+    staticPublishPath: client/build
     envVars:
       - key: REACT_APP_API_URL
         value: ${{ secrets.REACT_APP_API_URL }}

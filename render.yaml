@@ -1,4 +1,5 @@
 services:
+services:
   - type: web
     name: recipe-backend
     env: node
@@ -9,7 +10,7 @@ services:
       - key: MONGODB_URL
         value: ${{ secrets.MONGODB_URL }}
       - key: CLIENT_URL
-        value: https://recipe-frontend-0yyx.onrender.com
+        value: ${{ secrets.CLIENT_URL }}
 
   - type: web
     name: recipe-frontend
@@ -18,4 +19,4 @@ services:
     startCommand: 'cd client && serve -s build'
     envVars:
       - key: REACT_APP_API_URL
-        value: https://recipe-backend-unqz.onrender.com/api
+        value: ${{ secrets.REACT_APP_API_URL }}

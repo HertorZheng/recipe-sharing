@@ -4,9 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "proxy": "https://recipe-sharing-1.onrender.com",
     "dev": "nodemon index.js",
-    "build": "cd client && npm install",
+    "build": "npm install -- prefix ./client && npm run build -- prefix ./client && npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

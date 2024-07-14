@@ -24,6 +24,15 @@ function RecipeDetail() {
     navigate(`/edit-recipe/${id}`);
   };
 
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/recipes/${id}`);
+      navigate('/recipes');
+    } catch (error) {
+      console.error('Error deleting recipe:', error);
+    }
+  };
+
   if (!recipe) {
     return <div>Loading...</div>;
   }
@@ -31,9 +40,10 @@ function RecipeDetail() {
   return (
     <div className="recipe-detail">
       <h1>{recipe.title}</h1>
-      {recipe.imageUrl && <img src={`${process.env.REACT_APP_API_URL}/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
+      {recipe.imageUrl && <img src={`${process.env.REACT_APP_IMAGE_BASE_URL}/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
       <p>{recipe.description}</p>
       <button onClick={handleEdit}>Edit</button>
+      <button onClick={handleDelete}>Delete</button>
     </div>
   );
 }

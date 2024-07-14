@@ -18,19 +18,10 @@ function RecipeList() {
     fetchRecipes();
   }, []);
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/recipes/${id}`);
-      setRecipes(recipes.filter(recipe => recipe._id !== id));
-    } catch (error) {
-      console.error('Error deleting recipe:', error);
-    }
-  };
-
   return (
     <div className="recipe-list">
       <h1>All Recipes</h1>
-      <h4>Click the image to edit the recipe details</h4>
+      <h4>Click the image to view the recipe details</h4>
       <div className="recipes-container">
         {recipes.length === 0 ? (
           <p>No recipes found.</p>
@@ -40,9 +31,7 @@ function RecipeList() {
               <Link to={`/recipe/${recipe._id}`} className="recipe-link">
                 <h2>{recipe.title}</h2>
                 {recipe.imageUrl && <img src={`${process.env.REACT_APP_IMAGE_BASE_URL}/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
-                <p className="recipe-description">{recipe.description}</p>
               </Link>
-              <button onClick={() => handleDelete(recipe._id)}>Delete</button>
             </div>
           ))
         )}

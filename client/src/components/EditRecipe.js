@@ -33,6 +33,10 @@ function EditRecipe() {
     }
   };
 
+  const handleCancel = () => {
+    navigate(-1);  // This will go back to the previous page
+  };
+
   return (
     <div style={{
       maxWidth: '600px',
@@ -61,7 +65,10 @@ function EditRecipe() {
           <input type="text" name="imageUrl" value={recipe.imageUrl} onChange={handleChange}
             style={{ width: '100%', padding: '10px', marginBottom: '20px', border: '2px solid #ddd', borderRadius: '5px', fontSize: '1em', color: '#333' }} />
         </label>
-        <button type="submit" style={{ backgroundColor: '#4a90e2', color: 'white', padding: '15px 20px', marginTop: '20px', border: 'none', borderRadius: '5px', cursor: 'pointer', fontSize: '1.1em', transition: 'background-color 0.3s ease' }}>Save</button>
+        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+          <button type="submit" style={{ backgroundColor: '#4a90e2', color: 'white', padding: '15px 20px', marginTop: '20px', border: 'none', borderRadius: '5px', cursor: 'pointer', fontSize: '1.1em', transition: 'background-color 0.3s ease' }}>Save</button>
+          <button type="button" onClick={handleCancel} style={{ backgroundColor: '#e94e77', color: 'white', padding: '15px 20px', marginTop: '20px', border: 'none', borderRadius: '5px', cursor: 'pointer', fontSize: '1.1em', transition: 'background-color 0.3s ease' }}>Cancel</button>
+        </div>
       </form>
     </div>
   );

@@ -12,7 +12,7 @@ const Signup = () => {
     e.preventDefault();
     setError('');
 
-    console.log('API URL:', process.env.REACT_APP_API_URL);
+    console.log('API URL:', process.env.REACT_APP_API_URL); // Add this line to log the API URL
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/signup`, { email, password });

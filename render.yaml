@@ -1,22 +1,18 @@
 services:
   - type: web
-    name: recipe-frontend
-    env: static
-    buildCommand: npm install && npm run build
-    staticPublishPath: client/build
-    envVars:
-      - key: REACT_APP_API_URL
-        value: https://recipe-backend-unqz.onrender.com/api
-
-  - type: web
     name: recipe-backend
     env: node
-    buildCommand: cd server && npm install
-    startCommand: cd server && node index.js
+    plan: free
+    buildCommand: 'cd server && npm install'
+    startCommand: 'cd server && node index.js'
     envVars:
       - key: MONGODB_URL
-        value: mongodb+srv://hectorzheng4:Hector7126216!@hectorz.8d5rczo.mongodb.net/?retryWrites=true&w=majority&appName=HectorZ
-      - key: PORT
-        value: 5000
+        value: ${{ secrets.MONGODB_URL }}
       - key: CLIENT_URL
-        value: https://recipe-frontend-0yyx.onrender.com
+        value: ${client_url}
+
+  - type: web
+    name: recipe-frontend
+    env: static
+    buildCommand: 'cd client && npm install && npm run build'
+    startCommand: 'cd client && serve -s build'

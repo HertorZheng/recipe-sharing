@@ -11,7 +11,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/signup`, { email, password });
+      await axios.post(`${process.env.REACT_APP_API_URL}/signup`, { email, password }); 
       navigate('/login');
     } catch (error) {
       setError('Error registering user');
@@ -19,7 +19,7 @@ function Signup() {
   };
 
   return (
-    <div className="form-border">
+    <div class="form-border">
       <form onSubmit={handleSubmit}>
         <h2>Signup</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}

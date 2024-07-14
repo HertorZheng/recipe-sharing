@@ -15,14 +15,14 @@ function Login() {
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, { email, password });
       login(response.data.token);
-      navigate('/recipes');
+      navigate('/');
     } catch (error) {
-      setError('Invalid email or password');
+      setError('Error logging in');
     }
   };
 
   return (
-    <div className="form-border">
+    <div class="form-border">
       <form onSubmit={handleSubmit}>
         <h2>Login</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}

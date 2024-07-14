@@ -39,7 +39,7 @@ function RecipeList() {
             <div key={recipe._id} className="recipe-card">
               <Link to={`/recipe/${recipe._id}`} className="recipe-link">
                 <h2>{recipe.title}</h2>
-                {recipe.imageUrl && <img src={`${process.env.REACT_APP_API_URL}/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
+                {recipe.imageUrl && <img src={`${process.env.REACT_APP_IMAGE_BASE_URL}/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
                 <p className="recipe-description">{recipe.description}</p>
               </Link>
               <button onClick={() => handleDelete(recipe._id)}>Delete</button>

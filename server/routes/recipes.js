@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const Recipe = require('../models/recipe');
+const Recipe = require('../models/Recipe'); // Ensure this path is correct
 
 const router = express.Router();
 
@@ -23,7 +23,8 @@ router.post('/recipes', upload.single('image'), async (req, res) => {
     const newRecipe = new Recipe({
       title,
       description,
-      imageUrl
+      imageUrl,
+      user: req.userId // Assuming you are setting this somewhere
     });
 
     await newRecipe.save();

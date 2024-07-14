@@ -16,3 +16,6 @@ services:
     env: static
     buildCommand: 'cd client && npm install && npm run build'
     startCommand: 'cd client && serve -s build'
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://recipe-backend-unqz.onrender.com/api

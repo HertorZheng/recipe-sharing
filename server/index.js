@@ -4,16 +4,17 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const fs = require('fs');
 const recipeRoutes = require('./routes/recipes');
 const userRoutes = require('./routes/users');
 
 const app = express();
 
-console.log('MongoDB URL:', process.env.MONGODB_URL);  // Add this line to debug
+console.log('MongoDB URL:', process.env.MONGODB_URL);
 
 const allowedOrigins = [
+  process.env.CLIENT_URL,
   'http://localhost:3000',
-  'https://recipe-frontend-0yyx.onrender.com'
 ];
 
 app.use(cors({
@@ -35,12 +36,17 @@ app.use('/api/users', userRoutes);
 app.use('/api', recipeRoutes);
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../client/build')));
+const clientBuildPath = path.join(__dirname, '../client/build');
+if (fs.existsSync(clientBuildPath)) {
+  app.use(express.static(clientBuildPath));
 
-// Catchall handler to serve the React app for unknown routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
+  // Catchall handler to serve the React app for unknown routes
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(clientBuildPath, 'index.html'));
+  });
+} else {
+  console.error(`Client build path ${clientBuildPath} does not exist`);
+}
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });

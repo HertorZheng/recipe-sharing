@@ -9,7 +9,7 @@ services:
       - key: MONGODB_URL
         value: ${{ secrets.MONGODB_URL }}
       - key: CLIENT_URL
-        value: ${{ secrets.CLIENT_URL }}
+        value: https://recipe-frontend-0yyx.onrender.com
 
   - type: web
     name: recipe-frontend

@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: recipe-backend
+    name: recipe-backend-ulqd
     env: node
     plan: free
     buildCommand: 'cd server && npm install'
@@ -10,9 +10,11 @@ services:
         value: ${{ secrets.MONGODB_URL }}
       - key: CLIENT_URL
         value: ${{ secrets.CLIENT_URL }}
+      - key: PORT
+        value: 10000
 
   - type: web
-    name: recipe-frontend
+    name: recipe-frontend-ulqd
     env: static
     buildCommand: 'cd client && npm install && npm run build'
     staticPublishPath: client/build

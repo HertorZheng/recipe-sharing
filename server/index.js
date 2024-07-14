@@ -1,43 +1,40 @@
+require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const path = require('path');
+const recipeRoutes = require('./routes/recipes');
+const userRoutes = require('./routes/users'); // Ensure this line exists
+
 const app = express();
 
-const allowedOrigins = [
-  'http://localhost:3000', 
-  'https://recipe-frontend-0yyx.onrender.com'
-];
+app.use(cors());
+app.use(bodyParser.json());
+app.use('/uploads', express.static('uploads')); // Serve static files from the uploads directory
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
-}));
+// Routes
+app.use('/api/users', userRoutes); // Ensure this path is correct
+app.use('/api', recipeRoutes); // Ensure this path is correct
 
-// Other middlewares
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../client/build')));
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('Connection error', err));
+// Catchall handler to serve the React app for unknown routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
 
-// Define routes
-const recipesRouter = require('./routes/recipes');
-const usersRouter = require('./routes/users');
-app.use('/api/recipes', recipesRouter);
-app.use('/api/users', usersRouter);
+// MongoDB connection
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
+
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

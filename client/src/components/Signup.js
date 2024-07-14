@@ -12,11 +12,11 @@ const Signup = () => {
     e.preventDefault();
     setError('');
 
-    console.log('API URL:', process.env.REACT_APP_API_URL); // Add this line to log the API URL
+    console.log('API URL:', process.env.REACT_APP_API_URL); // Log the API URL
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/signup`, { email, password });
-      console.log(response.data);  // Add this line to log the response for debugging
+      console.log(response.data);  // Log the response for debugging
       if (response.status === 201) {
         navigate('/login');
       } else {
@@ -24,6 +24,7 @@ const Signup = () => {
       }
     } catch (err) {
       console.error('Signup error:', err);
+      console.error('Error details:', err.response); // Log error details
       setError('Error registering user');
     }
   };

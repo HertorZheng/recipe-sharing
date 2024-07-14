@@ -6,15 +6,16 @@ const jwt = require('jsonwebtoken');
 
 // Signup route
 router.post('/signup', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = new User({ email, password });
-    await user.save();
-    res.status(201).send('User created');
-  } catch (error) {
-    res.status(400).send('Error creating user');
-  }
-});
+    try {
+      const { email, password } = req.body;
+      const user = new User({ email, password });
+      await user.save();
+      res.status(201).json({ message: 'User registered successfully' });
+    } catch (error) {
+      console.error('Error registering user:', error);
+      res.status(500).json({ message: 'Error registering user' });
+    }
+  });
 
 // Login route
 router.post('/login', async (req, res) => {

@@ -31,9 +31,6 @@ function RecipeForm() {
     }
   };
 
-
-
-
   return (
     <div className="form-border">
       <form onSubmit={handleSubmit}>

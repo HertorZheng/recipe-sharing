@@ -7,7 +7,7 @@ services:
     startCommand: 'cd server && node index.js'
     envVars:
       - key: MONGODB_URL
-        value: ${{ secrets.MONGODB_URL }}
+        value: mongodb+srv://hectorzheng4:Hector7126216!@hectorz.8d5rczo.mongodb.net/?retryWrites=true&w=majority&appName=HectorZ
       - key: CLIENT_URL
         value: https://recipe-frontend-0yyx.onrender.com
 

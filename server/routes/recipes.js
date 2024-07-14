@@ -1,62 +1,86 @@
 const express = require('express');
-const router = express.Router();
-const multer = require('../middleware/multer');
+const multer = require('multer');
 const Recipe = require('../models/Recipe');
 
-// Fetch all recipes
-router.get('/recipes', async (req, res) => {
-  try {
-    const recipes = await Recipe.find();
-    res.json(recipes);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+const router = express.Router();
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  },
 });
 
-// Fetch a single recipe by ID
-router.get('/recipes/:id', async (req, res) => {
-  try {
-    const recipe = await Recipe.findById(req.params.id);
-    if (!recipe) return res.status(404).json({ error: 'Recipe not found' });
-    res.json(recipe);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+const upload = multer({ storage });
 
-// Recipe submission
-router.post('/recipes', multer.single('image'), async (req, res) => {
+router.post('/recipes', upload.single('image'), async (req, res) => {
   try {
     const { title, description } = req.body;
     const imageUrl = req.file ? req.file.path : null;
-    const recipe = new Recipe({ title, description, imageUrl });
-    await recipe.save();
-    res.status(201).json(recipe);
+
+    const newRecipe = new Recipe({
+      title,
+      description,
+      imageUrl
+    });
+
+    await newRecipe.save();
+    res.status(201).json(newRecipe);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error creating recipe:', error);
+    res.status(500).json({ message: 'Error creating recipe' });
   }
 });
 
-// Update a recipe
+router.get('/recipes', async (req, res) => {
+  try {
+    const recipes = await Recipe.find();
+    res.status(200).json(recipes);
+  } catch (error) {
+    console.error('Error fetching recipes:', error);
+    res.status(500).json({ message: 'Error fetching recipes' });
+  }
+});
+
+router.get('/recipes/:id', async (req, res) => {
+  try {
+    const recipe = await Recipe.findById(req.params.id);
+    if (!recipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
+    }
+    res.status(200).json(recipe);
+  } catch (error) {
+    console.error('Error fetching recipe:', error);
+    res.status(500).json({ message: 'Error fetching recipe' });
+  }
+});
+
 router.put('/recipes/:id', async (req, res) => {
   try {
     const { title, description } = req.body;
-    const recipe = await Recipe.findByIdAndUpdate(req.params.id, { title, description }, { new: true });
-    if (!recipe) return res.status(404).json({ error: 'Recipe not found' });
-    res.json(recipe);
+    const updatedRecipe = await Recipe.findByIdAndUpdate(req.params.id, { title, description }, { new: true });
+    if (!updatedRecipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
+    }
+    res.status(200).json(updatedRecipe);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error updating recipe:', error);
+    res.status(500).json({ message: 'Error updating recipe' });
   }
 });
 
-// Delete a recipe
 router.delete('/recipes/:id', async (req, res) => {
   try {
-    const recipe = await Recipe.findByIdAndDelete(req.params.id);
-    if (!recipe) return res.status(404).json({ error: 'Recipe not found' });
-    res.json({ message: 'Recipe deleted' });
+    const deletedRecipe = await Recipe.findByIdAndDelete(req.params.id);
+    if (!deletedRecipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
+    }
+    res.status(200).json({ message: 'Recipe deleted successfully' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error deleting recipe:', error);
+    res.status(500).json({ message: 'Error deleting recipe' });
   }
 });
 

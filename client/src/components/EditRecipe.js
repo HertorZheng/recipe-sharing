@@ -10,7 +10,7 @@ function EditRecipe() {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/recipes/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/recipes/${id}`);
         setRecipe(response.data);
       } catch (error) {
         console.error('Error fetching recipe:', error);
@@ -20,13 +20,13 @@ function EditRecipe() {
   }, [id]);
 
   const handleChange = (e) => {
-    setRecipe({ ...recipe, [e.target.name]: e.target.value});
+    setRecipe({ ...recipe, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/recipes/${id}`, recipe);
+      await axios.put(`${process.env.REACT_APP_API_URL}/recipes/${id}`, recipe);
       navigate('/recipes');
     } catch (error) {
       console.error('Error updating recipe:', error);
@@ -68,4 +68,3 @@ function EditRecipe() {
 }
 
 export default EditRecipe;
-

@@ -4,14 +4,14 @@ import axios from 'axios';
 import './RecipeDetail.css';
 
 function RecipeDetail() {
-  const { id } = useParams(); // Ensure id is retrieved from useParams
-  const navigate = useNavigate(); // Ensure navigate is defined
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [recipe, setRecipe] = useState(null);
 
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/recipes/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/recipes/${id}`);
         setRecipe(response.data);
       } catch (error) {
         console.error('Error fetching recipe:', error);
@@ -21,9 +21,8 @@ function RecipeDetail() {
   }, [id]);
 
   const handleEdit = () => {
-    navigate(`/edit-recipe/${id}`); // Ensure id is passed to the navigate function
+    navigate(`/edit-recipe/${id}`);
   };
-
 
   if (!recipe) {
     return <div>Loading...</div>;
@@ -32,7 +31,7 @@ function RecipeDetail() {
   return (
     <div className="recipe-detail">
       <h1>{recipe.title}</h1>
-      {recipe.imageUrl && <img src={`http://localhost:5000/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
+      {recipe.imageUrl && <img src={`${process.env.REACT_APP_API_URL}/${recipe.imageUrl}`} alt={recipe.title} className="recipe-image" />}
       <p>{recipe.description}</p>
       <button onClick={handleEdit}>Edit</button>
     </div>
@@ -40,4 +39,3 @@ function RecipeDetail() {
 }
 
 export default RecipeDetail;
-

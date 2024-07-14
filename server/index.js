@@ -4,49 +4,30 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const fs = require('fs');
+const userRoutes = require('./routes/users'); // Ensure this line exists
 const recipeRoutes = require('./routes/recipes');
-const userRoutes = require('./routes/users');
 
 const app = express();
 
-console.log('MongoDB URL:', process.env.MONGODB_URL);
-
-const allowedOrigins = [
-  process.env.CLIENT_URL,
-  'http://localhost:3000',
-];
-
+// Middleware
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
+  origin: process.env.CLIENT_URL,
+  optionsSuccessStatus: 200
 }));
-
 app.use(bodyParser.json());
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static('uploads')); // Serve static files from the uploads directory
 
 // Routes
-app.use('/api/users', userRoutes);
+app.use('/api', userRoutes); // Ensure this line exists
 app.use('/api', recipeRoutes);
 
 // Serve static files from the React app
-const clientBuildPath = path.join(__dirname, '../client/build');
-if (fs.existsSync(clientBuildPath)) {
-  app.use(express.static(clientBuildPath));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
-  // Catchall handler to serve the React app for unknown routes
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(clientBuildPath, 'index.html'));
-  });
-} else {
-  console.error(`Client build path ${clientBuildPath} does not exist`);
-}
+// Catchall handler to serve the React app for unknown routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });

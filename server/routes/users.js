@@ -13,7 +13,11 @@ router.post('/signup', async (req, res) => {
       res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
       console.error('Error registering user:', error);
-      res.status(500).json({ message: 'Error registering user' });
+      if (error.code === 11000) {
+        res.status(400).json({ message: 'Email already exists' });
+      } else {
+        res.status(500).json({ message: 'Error registering user' });
+      }
     }
   });
 
